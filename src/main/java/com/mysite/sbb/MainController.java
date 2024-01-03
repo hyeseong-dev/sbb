@@ -13,4 +13,9 @@ public class MainController {
         System.out.println("-".repeat(100));
         return "sbb index page";
     }
+
+    @GetMapping("/")
+    public String root(){
+        return "redirect:/question/list";
+    }
 }

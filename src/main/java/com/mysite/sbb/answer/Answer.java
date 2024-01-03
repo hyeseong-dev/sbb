@@ -1,8 +1,10 @@
-package com.mysite.sbb;
+package com.mysite.sbb.answer;
 
+import com.mysite.sbb.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 public class Answer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,8 +19,8 @@ public class Answer {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(length=200)
-    private String subject;
+    @CreatedDate
+    private LocalDateTime createDate;
 
     @ManyToOne
     private Question question;
