@@ -3,6 +3,8 @@ package com.mysite.sbb;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -28,19 +30,19 @@ public class SecurityConfig {
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+                .formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
         ;
-        // 방법2
-//        http.authorizeHttpRequests(
-//                        request -> request.requestMatchers(PathRequest.toH2Console()).permitAll()
-//                                .anyRequest().authenticated())
-//                .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
-//                .headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin));
         return http.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
 
