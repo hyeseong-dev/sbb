@@ -1648,3 +1648,9 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: E:/works/sbb/loc
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 149 more
+2024-01-04 15:38:25 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]SITE_USER"; expected "SAVEPOINT, SCRIPT, SHUTDOWN, SHOW"; SQL statement:
+SITE_USER [42001-214]
+2024-01-04 15:38:41 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]SITE_USER"; expected "SAVEPOINT, SCRIPT, SHUTDOWN, SHOW"; SQL statement:
+SITE_USER [42001-214]
