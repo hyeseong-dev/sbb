@@ -18,6 +18,9 @@
                 </div>
             </div>
             <div class="my-3">
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/question/vote/${question.id}|}">
+                    추천<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+                </a>
                 <a class="btn btn-sm btn-outline-secondary"
                    th:href="@{|/question/modify/${question.id}|}"
                    sec:authorize="isAuthenticated()"
@@ -50,6 +53,11 @@
                 </div>
             </div>
             <div class="my-3">
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                   th:data-uri="@{|/answer/vote/${answer.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+                </a>
                 <a class="btn btn-sm btn-outline-secondary"
                    th:href="@{|/answer/modify/${answer.id}|}"
                    sec:authorize="isAuthenticated()"
@@ -72,27 +80,22 @@
     </form>
 </div>
 </body>
-<script type='text/javascript'>
-    document.addEventListener('DOMContentLoaded', function() {
-        registerDeleteEventListeners();
-    });
-
-    function registerDeleteEventListeners() {
-        const deleteElements = document.getElementsByClassName("delete");
-        Array.from(deleteElements).forEach(function(element) {
-            element.addEventListener('click', function() {
-                confirmDeletion(this.dataset.uri);
-            });
-        });
-    }
-
-    function confirmDeletion(uri) {
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
         if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = uri;
-        }
-    }
-</script>
-
-
+            location.href = this.dataset.uri;
+        };
+    });
+});
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
 </script>
 </html>
